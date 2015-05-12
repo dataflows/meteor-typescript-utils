@@ -2043,11 +2043,17 @@ declare module _ {
             values: List<any>): TResult;
 
         /**
-        * @see _.object
-        **/
+         * @see _.object
+         **/
         object<TResult extends {}>(
             keys: List<string>,
             values: List<any>): TResult;
+
+        /**
+         * @see _.object
+         **/
+        object<TResult extends {}>(
+            items: List<[string, any]>): TResult;
     }
 
     /* *************

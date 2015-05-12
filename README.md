@@ -72,5 +72,11 @@ MeteorTemplate.register(new MainTemplate());
     }
 ```
 
+## For developers
+Compilation:
+```
+tsc src/**/*.ts --out dist/meteor-typescript-utils.js --module commonjs
+```
+
 ## License
 This project is provided on the MIT license.
