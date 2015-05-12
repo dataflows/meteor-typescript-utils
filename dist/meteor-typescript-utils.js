@@ -29,14 +29,14 @@ var meteortypescript;
         MeteorTemplate.Base = Base;
         function register(template) {
             var templateContextObj = template.context;
-            var contextFunctionNames = lodash.functions(template.context);
-            var contextFunctions = lodash.map(contextFunctionNames, function (funName) { return templateContextObj[funName]; });
-            var contextFunctionsWithNames = lodash.map(contextFunctionNames, function (funName) { return [funName, templateContextObj[funName]]; });
-            var contextEventFunctions = lodash.filter(contextFunctions, function (fun) { return !!fun.__meteorEventMatcher__; });
-            var events = lodash.indexBy(contextEventFunctions, function (fun) { return fun.__meteorEventMatcher__; });
-            var contextHelperFunctions = lodash.filter(contextFunctionsWithNames, function (fun) { return fun[1].__isMeteorHelper__; });
-            var helpersWithNames = lodash.indexBy(contextHelperFunctions, function (fun) { return fun[0]; });
-            var helpers = lodash.mapValues(helpersWithNames, function (fun) { return fun[1]; });
+            var contextFunctionNames = _.functions(template.context);
+            var contextFunctions = _.map(contextFunctionNames, function (funName) { return templateContextObj[funName]; });
+            var contextFunctionsWithNames = _.map(contextFunctionNames, function (funName) { return [funName, templateContextObj[funName]]; });
+            var contextEventFunctions = _.filter(contextFunctions, function (fun) { return !!fun.__meteorEventMatcher__; });
+            var events = _.indexBy(contextEventFunctions, function (fun) { return fun.__meteorEventMatcher__; });
+            var contextHelperFunctions = _.filter(contextFunctionsWithNames, function (fun) { return fun[1].__isMeteorHelper__; });
+            var helpersWithNames = _.indexBy(contextHelperFunctions, function (fun) { return fun[0]; });
+            var helpers = _.object(_.map(helpersWithNames, function (fun) { return [fun[0], fun[1][1]]; }));
             Template[template.name].events(events);
             Template[template.name].helpers(helpers);
             if (template.rendered) {

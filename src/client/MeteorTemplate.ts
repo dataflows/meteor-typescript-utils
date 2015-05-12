@@ -56,19 +56,21 @@ module meteortypescript {
 
         export function register<T>(template: IMeteorTemplate<T>) {
             var templateContextObj = <any>template.context;
-            var contextFunctionNames = lodash.functions(template.context);
-            var contextFunctions = lodash.map(contextFunctionNames, (funName: string) => templateContextObj[funName]);
-            var contextFunctionsWithNames = lodash.map(contextFunctionNames, (funName: string) => [funName, templateContextObj[funName]]);
+            var contextFunctionNames = _.functions(template.context);
+            var contextFunctions = _.map(contextFunctionNames, (funName: string) => templateContextObj[funName]);
+            var contextFunctionsWithNames = _.map(contextFunctionNames, (funName: string) => [funName, templateContextObj[funName]]);
 
-            var contextEventFunctions = lodash.filter(contextFunctions,
+            var contextEventFunctions = _.filter(contextFunctions,
                 (fun: IMeteorContextMember): boolean => !!fun.__meteorEventMatcher__);
-            var events: IEventsMap<T> = lodash.indexBy(contextEventFunctions,
+            var events: IEventsMap<T> = _.indexBy(contextEventFunctions,
                 (fun: IMeteorContextMember): string => fun.__meteorEventMatcher__);
 
-            var contextHelperFunctions = lodash.filter(contextFunctionsWithNames,
+            var contextHelperFunctions = _.filter(contextFunctionsWithNames,
                 (fun: [string, IMeteorContextMember]): boolean => fun[1].__isMeteorHelper__);
-            var helpersWithNames = lodash.indexBy(contextHelperFunctions, (fun: [string, IMeteorContextMember]): string => fun[0]);
-            var helpers = lodash.mapValues(helpersWithNames, (fun: [string, IMeteorContextMember]): IMeteorContextMember => fun[1]);
+            var helpersWithNames = _.indexBy(contextHelperFunctions, (fun: [string, IMeteorContextMember]): string => fun[0]);
+            var helpers = _.object(
+                _.map(helpersWithNames,
+                    (fun: [string, [string, IMeteorContextMember]]): [string, IMeteorContextMember] => [fun[0], fun[1][1]]));
 
             Template[template.name].events(events);
             Template[template.name].helpers(helpers);
