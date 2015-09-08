@@ -1,7 +1,7 @@
+## Warning: this project is not maintained or actively developed.
+
 # Meteor Typescript utils
 This package provides Typescript wrappers for core Meteor functionalities. This lets develop Meteor projects with the full type safety of Typescript.
-
-__This is a work in progress, contributions and ideas welcome!__
 
 Check out sample Meteor project: https://github.com/dataflows/meteor-typescript-utils-example
 
